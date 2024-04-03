@@ -11,11 +11,11 @@ Caroline Cooper
 
 Charlie Kim 
 
-Problem description:
+###Problem description:
 Pretend you are the owner/operator of an emergency healthcare clinic needing to build a relational database. You hired some students from the MIST 4610 class at the University of Georgia 
 to create the database for you. They need to know more about your organization to identify which entities, attributes, and relationships are important for you. Start by describing your business as a real client 
 
-Data Model: 
+###Data Model: 
 
 Our model is based on a hypothetical hospital,the patient entity is representative of the patient. We can store many attributes, their contact info, date of birth, etc. The patient is linked to their emergency contacts, which they can have many of. Each patient is assigned one room which can have multiple types of equipment. Patients also are linked to their invoices, which they can have many of. Patients can also leave reviews about the hospital, this entity stores their comments and the rating given from 1-5. Patients can also arrive at their appointment via hospital transportation, such as an ambulance or helicopter. This is noted in the transportation entity. 
 
@@ -23,7 +23,7 @@ Their appointment, which stores that date and appointment type, is linked to the
 
 ![datamodel](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/6d61a203-e7eb-44c1-b69d-e79b9ccb71cb)
 
-Data Dictonary: 
+###Data Dictonary: 
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/15c67da6-6599-47a2-8355-4afbd062d3ea)
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/4d762486-5ede-4fe6-9e88-9a26828b9d76)
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/fee98406-80a5-4ec7-bbd9-b5430d5340cc)
@@ -80,8 +80,109 @@ WHERE staffID = "1552";
 
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/c7d6b85c-0274-420a-a4b7-6154daf814bf)
 
+###6 Complex Queries: 
+
+1 Display the patient name, DOB, and their review number and review description 
+
+SELECT p.`date of birth`,p.patient_Name, r.reviewNum, r.Desc 
+
+FROM patient p 
+
+JOIN Review r ON p.patientID = r.patient_patientID; 
+
+ ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/fc50f224-b85e-40c2-9b25-7ae5d94ff579)
+
+#2 Find all appointments scheduled for 2027-10-21 along with the patient's name and the staff assigned to each appointment. 
+
+SELECT a.appointmentID, a.Date, p.patient_Name, s.staffName 
+
+FROM Appointment a 
+
+JOIN patient p ON a.patient_patientID = p.patientID 
+
+JOIN Staff s ON a.Staff_staffID = s.staffID 
+
+WHERE DATE(a.Date) ='2027-10-21'; 
+
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/1ea334c9-3241-4106-8c8b-55614b81df16)
+
+#3 Evaluate staff performance based on the number of appointments attended and the corresponding average patient reviews. 
+
+SELECT s.staffID, s.staffName,   
+
+COUNT(a.appointmentID) AS num_appointments_attended,  
+
+AVG(r.Rating) AS average_review_rating 
+
+FROM Staff s 
+
+JOIN Appointment a ON s.staffID = a.Staff_staffID 
+
+JOIN Procedures pr ON a.appointmentID = pr.Appointment_appointmentID 
+
+JOIN patient p ON p.patientID = a.patient_patientID 
+
+JOIN Review r ON r.patient_patientID = p.patientID 
+
+GROUP BY s.StaffID, s.StaffName; 
+ 
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/d6732138-83be-4fe5-884b-d13f5b938255)
+
+#4 Retrieve all appointments scheduled for Cesaro Troake along with their emergency contact details.  
+
+SELECT a.appointmentID, a.Date, e.EC_Phone, e.EC_Address, p.patient_Name 
+
+FROM Appointment a 
+
+JOIN patient p ON a.patient_patientID = p.patientID 
+
+JOIN Emergency_Contact e ON p.patientID = e.patient_patientID 
+
+WHERE p.patient_Name = 'Cesaro Troake’; 
+
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/fc638be6-d467-4e33-827f-1f8733387399)
+
+#5 Determine the average number of appointments per staff member over a given period, and display those exceeding the average in descending order 
+
+SELECT Staff.staffID, Staff.staffName, COUNT(Appointment.appointmentID) AS NumberOfAppointments 
+
+FROM Staff 
+
+JOIN Appointment ON Staff.staffID = Appointment.Staff_staffID 
+
+WHERE Appointment.Date BETWEEN '2025-08-25' AND '2027-11-03' 
+
+GROUP BY Staff.staffID, Staff.staffName 
+
+HAVING COUNT(Appointment.appointmentID) > (SELECT (AVG(AppointmentCounts.NumberOfAppointments) - 0.1) -- Slight adjustment for precision FROM ( 
+SELECT COUNT(Appointment.appointmentID) AS NumberOfAppointments 
+FROM Appointment 
+ WHERE Appointment.Date BETWEEN '2025-08-25' AND '2027-11-03' 
+GROUP BY Appointment.Staff_staffID 
+) AS AppointmentCounts  ) 
+
+ORDER BY NumberOfAppointments DESC; 
+ 
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/c4e4e684-f062-4270-b7c8-56bbf45ff12a)
+
+#6 Identify patients with the largest balance due on their invoices with a balance exceeding $10,000. Order the balances due in descending order and display the total average balance due. 
 
 
+SELECT patient.patientID, patient.patient_Name, Invoice.InvoiceNum, SUM(Invoice.Balence_Due) AS TotalBalanceDue, 
+(SELECT AVG(Balence_Due) FROM Invoice) AS TotalAverageBalanceDue 
+FROM patient 
+
+JOIN patient_has_Invoice ON patient.patientID = patient_has_Invoice.patient_patientID 
+
+JOIN Invoice ON patient_has_Invoice.Invoice_InvoiceNum = Invoice.InvoiceNum 
+
+GROUP BY patient.patientID, patient.patient_Name, Invoice.InvoiceNum 
+
+HAVING SUM(Invoice.Balence_Due) > 10000 
+
+ORDER BY TotalBalanceDue DESC; 
+
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/6237059d-e165-4e0f-a1aa-d58288e70a7e)
 
 
 
