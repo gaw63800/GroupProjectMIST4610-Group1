@@ -11,7 +11,7 @@ Problem description:
 Pretend you are the owner/operator of an emergency healthcare clinic needing to build a relational database. You hired some students from the MIST 4610 class at the University of Georgia 
 to create the database for you. They need to know more about your organization to identify which entities, attributes, and relationships are important for you. Start by describing your business as a real client 
 
-Data Model: /n
+Data Model: 
 
 Our model is based on a hypothetical hospital,the patient entity is representative of the patient. We can store many attributes, their contact info, date of birth, etc. The patient is linked to their emergency contacts, which they can have many of. Each patient is assigned one room which can have multiple types of equipment. Patients also are linked to their invoices, which they can have many of. Patients can also leave reviews about the hospital, this entity stores their comments and the rating given from 1-5. Patients can also arrive at their appointment via hospital transportation, such as an ambulance or helicopter. This is noted in the transportation entity. 
 
