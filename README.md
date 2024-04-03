@@ -2,9 +2,13 @@
 
 ## Team Members: 
 Gwen Wentworth
+
 Caroline Cooper
+
 [Hubah Akhtar]( https://github.com/hubahakhtar/Project1 )
+
 [Kishen Patel]( https://github.com/supersomeone03/Project-1)
+
 Charlie Kim 
 
 Problem description:
