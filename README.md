@@ -37,6 +37,48 @@ Data Dictonary:
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/bf7be95c-6f76-4925-8af8-b38645060699)
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/97904006-042a-4ca2-8c07-1e39e5b536d0)
 
+### Simple Queries 
+
+1 Select the name and DOB for all patients born in 1999 
+
+SELECT patient_Name, `date of birth`  
+
+FROM patient 
+
+WHERE `date of birth` regexp "1999"; 
+
+ ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/a30bf304-ce27-4060-a2e8-479d8457d876)
+
+2 Show the name of patient and show their invoice number and amount due 
+
+
+SELECT patient_Name, Invoice_InvoiceNum, Charge 
+
+FROM patient 
+
+JOIN patient_has_Invoice ON patient_has_Invoice.patient_patientID = patient.patientID; 
+
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/a4033758-5b2e-4ca0-9159-c7e4d00fb04b)
+ 
+3 Display all existing appointments along with the date and name of patient 
+
+SELECT patient_Name, appointmentID, Date 
+
+FROM patient 
+
+JOIN Appointment ON Appointment.patient_patientID= patient.patientID; 
+
+ ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/ef536e62-f940-4426-adbf-dbf91f2c95c7)
+
+4 Display all appointments for a particular staff member 
+
+SELECT staffID, staffName, staff_schedule,appointmentID, Date 
+FROM Staff 
+JOIN Appointment ON Appointment.Staff_staffID = Staff.staffID 
+
+WHERE staffID = "1552"; 
+
+![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/c7d6b85c-0274-420a-a4b7-6154daf814bf)
 
 
 
