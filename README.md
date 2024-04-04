@@ -23,7 +23,7 @@ Their appointment, which stores that date and appointment type, is linked to the
 
 ![datamodel](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/6d61a203-e7eb-44c1-b69d-e79b9ccb71cb)
 
-###Data Dictonary: 
+### Data Dictonary: 
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/15c67da6-6599-47a2-8355-4afbd062d3ea)
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/4d762486-5ede-4fe6-9e88-9a26828b9d76)
 ![image](https://github.com/gaw63800/GroupProjectMIST4610-Group1/assets/150155143/fee98406-80a5-4ec7-bbd9-b5430d5340cc)
