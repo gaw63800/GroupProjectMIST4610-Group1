@@ -3,13 +3,13 @@
 ## Team Members: 
 Gwen Wentworth
 
-Caroline Cooper
+[Caroline Cooper](https://github.com/carolinetcooper6/Group-Project-1)
 
 [Hubah Akhtar]( https://github.com/hubahakhtar/Project1 )
 
 [Kishen Patel]( https://github.com/supersomeone03/Project-1)
 
-Charlie Kim 
+[Charlie Kim]( https://github.com/charles8888/Project-1)
 
 ###Problem description:
 Pretend you are the owner/operator of an emergency healthcare clinic needing to build a relational database. You hired some students from the MIST 4610 class at the University of Georgia 
